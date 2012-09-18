@@ -7,9 +7,9 @@ C++ Sleuth Kit Framework module that wraps libexif to pull out EXIF data.
 
 DESCRIPTION
 
-This module is a file analysis module that will check all files for an exif
-header, then parse any found headers for metadata of interest. Any metadata
-of interest will be posted to the blackboad as TSK_METADATA_EXIF artifacts.
+This module is a file analysis module that will check all files for
+an exif header, then parse any found headers for metadata of interest.
+Any metadata of interest will be posted to the blackboard.
 
 USAGE
 
@@ -23,6 +23,7 @@ to the pipeline:
 RESULTS
 
 All results will be posted to the blackboard as TSK_METADATA_EXIF artifacts.
+Currently, it extracts dates, author, device, and GPS information. 
 
 
 TODO
