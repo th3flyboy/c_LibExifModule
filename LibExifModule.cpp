@@ -15,6 +15,7 @@
 // System includes
 #include <string>
 #include <sstream>
+#include <string.h>
 
 // Framework includes
 #include "TskModuleDev.h"
@@ -27,6 +28,10 @@
 
 namespace 
 {
+    const char *MODULE_NAME = "ExifExtract";
+    const char *MODULE_DESCRIPTION = "Stores extracted EXIF data to the image database";
+    const char *MODULE_VERSION = "1.0.0";
+
     // JFIF signature
     static unsigned char jfifSig[] = { 0xFF, 0xD8, 0xFF, 0xE0 };
     // EXIF signature
@@ -34,13 +39,6 @@ namespace
 
     // We process the file 8k at a time
     static const uint32_t FILE_BUFFER_SIZE = 8192;
-
-    static void log_func(ExifLog *log, ExifLogCode code, const char * domain,
-        const char* format, va_list args, void * data)
-    {
-        vfprintf(stderr, format, args);
-        fprintf(stderr, "\n");
-    }
 
     std::map<ExifTag, TSK_ATTRIBUTE_TYPE> initializeTagMap()
     {
@@ -126,7 +124,7 @@ extern "C"
      */
     TSK_MODULE_EXPORT const char* name()
     {
-        return "ExifExtract";
+        return MODULE_NAME;
     }
 
     /**
@@ -136,7 +134,7 @@ extern "C"
      */
     TSK_MODULE_EXPORT const char* description()
     {
-        return "Stores extracted EXIF data to the image database";
+        return MODULE_DESCRIPTION;
     }
 
     /**
@@ -146,7 +144,7 @@ extern "C"
      */
     TSK_MODULE_EXPORT const char* version()
     {
-        return "1.0.0";
+        return MODULE_VERSION;
     }
     
     /* Function to populate TSK Blackboard exif related attributes */
@@ -269,8 +267,8 @@ extern "C"
             attrs.push_back(attr);
         }
         if(attrs.size() > 0){
-            TskBlackboardArtifact art = pFile->createArtifact(TSK_ARTIFACT_TYPE::TSK_METADATA_EXIF);
-            for(int i = 0; i < attrs.size(); i++){
+            TskBlackboardArtifact art = pFile->createArtifact(TSK_METADATA_EXIF);
+            for(size_t i = 0; i < attrs.size(); i++){
                 art.addAttribute(attrs[i]);
             }
         }
