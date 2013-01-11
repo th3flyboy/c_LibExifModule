@@ -18,7 +18,7 @@
 #include <string.h>
 
 // Framework includes
-#include "TskModuleDev.h"
+#include "tsk/framework/utilities/TskModuleDev.h"
 
 // libexif includes
 #include "libexif/exif-loader.h"
